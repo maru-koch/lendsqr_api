@@ -4,7 +4,8 @@
   "description": "A fintech application to fund account, transfer and withdraw",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./index.js"
   },
   "repository": {
     "type": "git",
@@ -23,9 +24,13 @@
   },
   "homepage": "https://github.com/maru-koch/lendsqr_api#readme",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "knex": "^2.2.0",
+    "morgan": "^1.10.0",
     "mysql": "^2.18.1",
+    "nodemon": "^2.0.19",
     "underscore": "^1.13.4"
   }
 }
