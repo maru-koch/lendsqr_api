@@ -2,7 +2,7 @@ require('dotenv').config()
 require('./config/knexConfig')
 const app = require('./app')
 
-const port = process.env.PORT;
+const port = 3000;
 
 process.on('uncaughtException',(error)=>{
     console.log('uncaught exception', error.name, error.stack, error.message)

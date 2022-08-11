@@ -1,22 +1,24 @@
-
+const Knex = require('knex') 
 require('dotenv').config();
 
 // configuration to connect to the database
 
-const knex = require('knex')({
-  client: process.env.DB_CLIENT,
+let knex = Knex({
+  client: "mysql",
   connection: {
-    host : process.env.DB_HOST,
-    port : process.env.DB_PORT,
-    user : process.env.DB_USER,
-    password : process.env.DB_PASSWORD,
-    database : process.env.DB_NAME
+    host : "localhost",
+    port : 3306,
+    user : "root",
+    password : 12345678,
+    database : "lendersqrDB"
   },
   pool: {min:0, max:7}
 });
 
-knex.raw("SELECT VERSION()").then(()=>{
-    console.log("connection to database successful")
-})
+// knex.raw("SELECT VERSION()").then(()=>{
+//     console.log("connection to database successful")
+// })
+
+
 
 module.exports = knex

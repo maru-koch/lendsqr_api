@@ -24,12 +24,15 @@
   },
   "homepage": "https://github.com/maru-koch/lendsqr_api#readme",
   "dependencies": {
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "knex": "^2.2.0",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
     "nodemon": "^2.0.19",
     "underscore": "^1.13.4"
   }
