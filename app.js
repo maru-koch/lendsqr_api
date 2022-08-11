@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === 'test') {
   after('close the session store', () => sessionStore.stopExpiringSessions())
 }
 const routes = express.Router()
-app.use("/user", userRouter);
+app.use("/api/v1/user", userRouter);
 // app.use("/account", accountRouter);
 // app.use("/transaction", transactionRouter);
 

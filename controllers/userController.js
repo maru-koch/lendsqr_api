@@ -1,7 +1,9 @@
 const db = require('../config/db')
+const bcrypt = require('bcrypt')
 
 exports.signup = async (req, res, next) => {
     // user signs up for new account
+    console.log("sign up", req.body)
   try {
     const {email, password} = req.body
     const hash = await bcrypt.hashSync(password, 10)
@@ -19,11 +21,12 @@ exports.signup = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
     // user logs into account
+    console.log(req.body)
   try {
     const {email, password} = req.body
     const user = await db('user').first('*').where({email})
     if (!user) {
-      console.log('No such user found:', req.body.email)
+      console.log('User does not exist:', req.body.email)
       res.status(401).send('Wrong username and/or password')
     } else {
       const validPass = await bcrypt.compare(password, user.hash)
