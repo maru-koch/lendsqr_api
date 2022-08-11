@@ -25,7 +25,6 @@ const session = require('express-session')
 const KnexStore = require('connect-session-knex')(session)
 const db = require('./config/db')
 if (process.env.NODE_ENV !== 'production') require('dotenv').config()
-const PORT = process.env.PORT || 8080
 const sessionStore = new KnexStore({knex: db})
 const app = express()
 
@@ -34,9 +33,9 @@ if (process.env.NODE_ENV === 'test') {
   after('close the session store', () => sessionStore.stopExpiringSessions())
 }
 
-app.use("/user", userRouter);
-app.use("/account", accountRouter);
-app.use("/transaction", transactionRouter);
+// app.use("/user", userRouter);
+// app.use("/account", accountRouter);
+// app.use("/transaction", transactionRouter);
 
 app.use(
   session({
@@ -47,6 +46,5 @@ app.use(
   })
 )
 
-app.listen(PORT, () => console.log(`Mixing it up on port ${PORT}`))
-
+// app.listen(PORT, () => console.log(`Mixing it up on port ${PORT}`))
 module.exports = app

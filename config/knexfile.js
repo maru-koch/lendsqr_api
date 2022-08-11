@@ -1,4 +1,5 @@
 // Update with your config settings.
+// knex configuration for mysql connection
 
 /**
  * @type { Object.<string, import("knex").Knex.Config> }

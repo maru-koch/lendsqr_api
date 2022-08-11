@@ -2,7 +2,7 @@ require('dotenv').config()
 require('./config/knexfile')
 const app = require('./app')
 
-const port = 3000;
+const port = process.env.EXPRESS_PORT
 
 process.on('uncaughtException',(error)=>{
     console.log('uncaught exception', error.name, error.stack, error.message)
@@ -14,4 +14,4 @@ app.listen(port, ()=>{
 
 process.on('unhandledRejection',(error)=>{
     console.log('uncaught exception', error.name, error.stack, error.message)
-});
+});``
