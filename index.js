@@ -1,5 +1,5 @@
 require('dotenv').config()
-require('./config/knexConfig')
+require('./config/knexfile')
 const app = require('./app')
 
 const port = 3000;

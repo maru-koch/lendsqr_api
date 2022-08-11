@@ -24,4 +24,4 @@
 
 
 
-module.exports = knex
+// module.exports = knex

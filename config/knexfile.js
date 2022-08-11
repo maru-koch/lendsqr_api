@@ -4,7 +4,7 @@
  * @type { Object.<string, import("knex").Knex.Config> }
  */
 
-const pkg = require('./package.json')
+const pkg = require('../package.json')
 const path = require('path')
 const databaseName = pkg.name + (process.env.NODE_ENV === 'test' ? '-test' : '')
 module.exports = {
