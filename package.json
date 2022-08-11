@@ -1,0 +1,25 @@
+{
+  "name": "lendsqr_api",
+  "version": "1.0.0",
+  "description": "A fintech application to fund account, transfer and withdraw",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maru-koch/lendsqr_api.git"
+  },
+  "keywords": [
+    "account",
+    "fund",
+    "fintech",
+    "api"
+  ],
+  "author": "Nwokocha Maruche",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maru-koch/lendsqr_api/issues"
+  },
+  "homepage": "https://github.com/maru-koch/lendsqr_api#readme"
+}
