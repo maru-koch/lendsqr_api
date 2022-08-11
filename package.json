@@ -21,5 +21,11 @@
   "bugs": {
     "url": "https://github.com/maru-koch/lendsqr_api/issues"
   },
-  "homepage": "https://github.com/maru-koch/lendsqr_api#readme"
+  "homepage": "https://github.com/maru-koch/lendsqr_api#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "knex": "^2.2.0",
+    "mysql": "^2.18.1",
+    "underscore": "^1.13.4"
+  }
 }
