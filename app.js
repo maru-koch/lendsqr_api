@@ -46,5 +46,4 @@ app.use(
   })
 )
 
-// app.listen(PORT, () => console.log(`Mixing it up on port ${PORT}`))
 module.exports = app

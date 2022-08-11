@@ -1,5 +1,5 @@
 require('dotenv').config()
-require('./config/knexfile')
+require('./knexfile')
 const app = require('./app')
 
 const port = process.env.EXPRESS_PORT
@@ -9,7 +9,7 @@ process.on('uncaughtException',(error)=>{
 });
 
 app.listen(port, ()=>{
-    console.log("App running on port", port)
+    console.log(`App running on port ${port}`)
 });
 
 process.on('unhandledRejection',(error)=>{
