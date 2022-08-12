@@ -4,10 +4,10 @@
  */
 exports.up = function(knex) {
    return knex.schema.createTable('users', function(table) {
-      table.increments('userID').primary();
-      table.string('firstName')
-      table.string('lastName')
-      table.string('email')
+      table.uuid('id').primary().notNullable().defaultTo(knex.raw("(UUID())"));
+      table.string('firstName').notNullable()
+      table.string('lastName').notNullable()
+      table.string('email').notNullable().unique()
       table.string('phone')
       table.timestamp('created_at').defaultTo(knex.fn.now());
     });
