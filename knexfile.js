@@ -19,7 +19,7 @@ module.exports = {
       database : "lendersqrDB"
     },
     migrations: {
-      directory: path.join(__dirname, './config/migrations'),
+      directory: path.join(__dirname, './config/migration'),
     }
   },
  production :{
@@ -33,7 +33,7 @@ module.exports = {
     },
     pool: {min: 2, max: 10},
     migrations: {
-      directory: path.join(__dirname, './config/migrations'),
+      directory: path.join(__dirname, './config/migration'),
     }
   }
 };

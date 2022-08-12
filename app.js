@@ -21,29 +21,29 @@ app.use(express.json());
 // module.exports = app;
 
 
-const session = require('express-session')
-const KnexStore = require('connect-session-knex')(session)
-const db = require('./config/db')
+// const session = require('express-session')
+// const KnexStore = require('connect-session-knex')(session)
+// const db = require('./config/db')
 if (process.env.NODE_ENV !== 'production') require('dotenv').config()
-const sessionStore = new KnexStore({knex: db})
+// const sessionStore = new KnexStore({knex: db})
 
 
 
 if (process.env.NODE_ENV === 'test') {
   after('close the session store', () => sessionStore.stopExpiringSessions())
 }
-const routes = express.Router()
+
 app.use("/api/v1/user", userRouter);
 // app.use("/account", accountRouter);
 // app.use("/transaction", transactionRouter);
 
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET || 'lendersqr',
-    store: sessionStore,
-    resave: false,
-    saveUninitialized: false,
-  })
-)
+// app.use(
+//   session({
+//     secret: process.env.SESSION_SECRET || 'lendersqr',
+//     store: sessionStore,
+//     resave: false,
+//     saveUninitialized: false,
+//   })
+// )
 
 module.exports = app
