@@ -7,8 +7,9 @@ exports.up = function(knex) {
       table.uuid('id').primary().notNullable().defaultTo(knex.raw("(UUID())"));
       table.string('firstName').notNullable()
       table.string('lastName').notNullable()
-      table.string('email').notNullable().unique()
       table.string('phone')
+      table.string('email').notNullable().unique()
+      table.string('password')
       table.timestamp('created_at').defaultTo(knex.fn.now());
     });
 };

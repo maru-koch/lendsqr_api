@@ -7,14 +7,12 @@ exports.signup = async (req, res, next) => {
   try {
     const {firstName, lastName, phone, email, password} = req.body
     const hash = await bcrypt.hashSync(password, 10)
-    // console.log(hash)
-    // // const [user] = await db('user').insert()
-    db.insert({email, firstName, lastName, phone, email}).into('users').returning('*').then(data =>{
-      res.status(200).json({message:"registation successful", data:data});
+    db.insert({email, firstName, lastName, phone, email, password:hash}).into('users').returning('*').then(data =>{
+      res.status(201).json({message:"registation successful", data});
     })
   }catch (err) {
     if (err) {
-      res.status(401).send('User already exists')
+      res.status(401).json({message: 'User already exists'})
     } else {
       next(err)
     }
@@ -26,15 +24,15 @@ exports.login = async (req, res, next) => {
     console.log(req.body)
   try {
     const {email, password} = req.body
-    const user = await db('user').first('*').where({email})
+    const user = await db('users').first('*').where({email})
+    console.log(user)
     if (!user) {
       console.log('User does not exist:', req.body.email)
       res.status(401).send('Wrong username and/or password')
     } else {
-      const validPass = await bcrypt.compare(password, user.hash)
+      const validPass = await bcrypt.compare(password, user.password)
       if (validPass) {
-        req.session.user = user
-        res.json(user)
+        res.status(200).json({message:"login successful", user})
       } else {
         console.log('Incorrect password for user:', email)
         res.status(401).send('Wrong username and/or password')

@@ -1,50 +1,25 @@
-import request from "supertest";
-import app from "../src/app";
-import User from "../src/database/models/user";
-import db from "../src/database/models";
 
-afterAll(async () => {
-  // delete test user from database
-  await User(db.sequelize, db.Sequelize.DataTypes).destroy({
-    where: {
-      email: "test@example.com"
-    }
-  });
-});
+const app = require('../app');
+const supertest = require('supertest');
+const request = supertest(app)
 
 describe("Test for user authentication", () => {
-  it("Register a student", async () => {
-    const response = await request(app)
-      .post("/signup")
+  it("test user can sign up with correct credentials", async done => {
+    const response = await request
+      .post("/api/v1/users/signup")
       .send({
-        childName: "Test User",
-        email: "test@example.com",
+        firstName: "lender",
+        lastName: "square",
         phoneNumber: 8123456789,
-        countryCode: 44,
+        email: "test@example.com",
         password: "password",
-        confirmPassword: "password",
-        grade: "Good",
       })
-      .expect(201);
+      expect(response.status).toBe(201);
+      expect(response.message).toBe("registation successful")
 
-    expect(response.body.message).toBe("learner created successfully");
+    // expect(response.body.message).toBe("user created successfully");
   });
+})
 
-  it("User cannot login with invalid credentials", async () => {
-    const response = await request(app)
-      .post("/login")
-      .send({ email: "user@notexist.com", password: "password" })
-      .expect(403);
 
-    expect(response.body.message).toBe("Invalid credentials.");
-  });
 
-  it("User can login with valid credentials", async () => {
-    const response = await request(app)
-      .post("/login")
-      .send({ email: "test@example.com", password: "password" })
-      .expect(200);
-
-    expect(response.body.message).toBe("login successful");
-  });
-});
