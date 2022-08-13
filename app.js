@@ -5,7 +5,7 @@ const morgan = require('morgan');
 
 // ROUTERS
 const userRouter = require('./routes/userRouter')
-// const accountRouter = require('./routes/accountRouter')
+const accountRouter = require('./routes/accountRouter')
 // const transactionRouter = require('./routes/transactionRouter')
 const app = express();
 
@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 app.use("/api/v1/user", userRouter);
-// app.use("/account", accountRouter);
+app.use("/api/v1/account", accountRouter);
 // app.use("/transaction", transactionRouter);
 
 // app.use(

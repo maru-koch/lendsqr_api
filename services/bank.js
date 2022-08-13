@@ -6,14 +6,16 @@ class Bank{
     constructor(bankCode){
         this.bankCode = bankCode;
     }
-    
+
     generateAccountNumber(){
         const nuban = 10;
-        const accountNumber = '';
+        let accountNumber = '';
         for (let i = 0; i < nuban; i++){
-            const digit = Math.random(1, 9);
+            const digit = Math.floor(Math.random(1, 9) * nuban);
             accountNumber += digit.toString()
         }
         return accountNumber
     }
 }
+
+module.exports = Bank
