@@ -8,7 +8,7 @@ exports.up = function(knex) {
       table.uuid('id').primary().defaultTo(knex.raw("(UUID())"));
       table.bigint('accountNumber').unique({indexName:'user_unique_id', deferrable:'immediate'})
       table.enu('accountType', ['current','savings']);
-      table.decimal("balance",(10, 6)).defaultTo(0.0)
+      table.decimal("balance",10, 2)
       table.uuid('user_id').references('id').inTable('users').notNullable();
       table.timestamp('created_at').defaultTo(knex.fn.now());
     });

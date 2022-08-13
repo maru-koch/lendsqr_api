@@ -40,6 +40,11 @@ exports.getDetails =async(req, res, next)=>{
     res.status(200).json({message:"account retrieved successfully", account})
 }
 
-exports.remove =async(req, res, next)=>{
-    //
+exports.checkBalance= async(req, res, next)=>{
+    const account = db("accounts").first("*").where(req.body.accountNumber)
+    if (!account){
+        res.status(404).json({message:"Account not found"})
+    }
+    res.status(200).json({message:`Account balance is ${account.balance} naira `})
 }
+

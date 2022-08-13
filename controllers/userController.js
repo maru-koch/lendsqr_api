@@ -2,13 +2,14 @@ const db = require('../config/db')
 const bcrypt = require('bcrypt')
 
 exports.signup = async (req, res, next) => {
+
     // user signs up for new account
-   console.log(req.body)
+
   try {
     const {firstName, lastName, phone, email, password} = req.body
     const hash = await bcrypt.hashSync(password, 10)
-    db.insert({email, firstName, lastName, phone, email, password:hash}).into('users').returning('*').then(data =>{
-      res.status(201).json({message:"registation successful", data});
+    db.insert({email, firstName, lastName, phone, email, password:hash}).into('users').returning('*').then(user =>{
+      res.status(201).json({message:"registation successful"});
     })
   }catch (err) {
     if (err) {
@@ -20,7 +21,9 @@ exports.signup = async (req, res, next) => {
 }
 
 exports.login = async (req, res, next) => {
-    // user logs into account
+
+    // user logs into account with email and password
+    
     console.log(req.body)
   try {
     const {email, password} = req.body

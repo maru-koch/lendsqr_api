@@ -6,7 +6,7 @@ const morgan = require('morgan');
 // ROUTERS
 const userRouter = require('./routes/userRouter')
 const accountRouter = require('./routes/accountRouter')
-// const transactionRouter = require('./routes/transactionRouter')
+const transactionRouter = require('./routes/transactionRouter')
 const app = express();
 
 app.use(cors());
@@ -35,7 +35,7 @@ if (process.env.NODE_ENV === 'test') {
 
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/account", accountRouter);
-// app.use("/transaction", transactionRouter);
+app.use("/api/v1/transaction", transactionRouter);
 
 // app.use(
 //   session({
