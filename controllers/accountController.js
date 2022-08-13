@@ -41,10 +41,12 @@ exports.getDetails =async(req, res, next)=>{
 }
 
 exports.checkBalance= async(req, res, next)=>{
-    const account = db("accounts").first("*").where(req.body.accountNumber)
+    const accountNumber = req.body.accountNumber
+    console.log(accountNumber)
+    const account = await db("accounts").first("*").where({accountNumber})
     if (!account){
         res.status(404).json({message:"Account not found"})
     }
-    res.status(200).json({message:`Account balance is ${account.balance} naira `})
+    res.status(200).json({message:`Account balance is ${account.balance} naira`, balance: account.balance})
 }
 
