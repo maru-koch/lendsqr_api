@@ -2,7 +2,7 @@ knex.schema.hasTable('transactions').then(function(exists) {
     // a schema to create the transaction table if it does not exist
   if (!exists) {
       return knex.schema.createTable('transactions', function(table) {
-      table.uuid('id').primary();
+      table.uuid('id').primary().defaultTo(knex.raw('(UUID())'));
       table.enu('transactionType', ['debit', 'credit']);
       table.bigint('amount');
       table.uuid('user_id').references('id').inTable('users');

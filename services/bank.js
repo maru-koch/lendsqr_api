@@ -1,20 +1,23 @@
 
 class Bank{
 
-    // a class that perform all bank related operations
+    // a class that performs all bank related operations
 
-    constructor(bankCode){
-        this.bankCode = bankCode;
+    constructor(){
+        this.bankCode = 104;
     }
-
     generateAccountNumber(){
+
+        // generates new 10 digits account number. 
+        // returns bank code and account number
+
         const nuban = 10;
         let accountNumber = '';
         for (let i = 0; i < nuban; i++){
             const digit = Math.floor(Math.random(1, 9) * nuban);
             accountNumber += digit.toString()
         }
-        return accountNumber
+        return {accountNumber, bankCode: this.bankCode}
     }
 }
 
