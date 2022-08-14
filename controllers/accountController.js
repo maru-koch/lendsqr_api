@@ -9,18 +9,26 @@ exports.create = async( req, res, next)=>{
 
     // creates a new account for an existing user
 
-    const {user_id, bankCode, accountType} = req.body;
+    const {user_id, accountType} = req.body;
     const user =  await db("users").first("*").where({id:user_id})
+
     if (!user){
-        return res.status(404).json({message: 'User does not exist'})
+        return res.status(404).json({message: 'Account creation failed. User does not exist'})
     }else{
-        const bank = new Bank()
-        let accountNumber = bank.generateAccountNumber()
-        // const bankCode = bank.bankCode
-        const balance = 0;
-        const account = db.insert({user_id, accountNumber, accountType, balance}).into("accounts").returning("*").then((accountDetails)=>{
-            res.status(201).json({message:"account sucessfully created", accountDetails})
-        })
+        try{
+            const bank = new Bank()
+            const accountDetails = bank.generateAccountNumber()
+            let accountNumber = accountDetails.accountNumber
+            // const bankCode = bank.bankCode
+            const balance = 0;
+            await db.insert({user_id, accountNumber, accountType, balance}).into("accounts").returning("*").then((accountDetails)=>{
+                res.status(201).json({message:"account sucessfully created", accountDetails})
+            })
+        }catch(err){
+            console.log(err)
+            res.send({message:"Account already exists"})
+        }
+        
     }
 }
 
@@ -47,6 +55,6 @@ exports.checkBalance= async(req, res, next)=>{
     if (!account){
         res.status(404).json({message:"Account not found"})
     }
-    res.status(200).json({message:`Account balance is ${account.balance} naira`, balance: account.balance})
+    res.status(200).json({message:`Your account balance is ${account.balance} naira`, balance: account.balance})
 }
 
