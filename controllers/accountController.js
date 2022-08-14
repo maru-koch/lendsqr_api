@@ -17,7 +17,7 @@ exports.create = async( req, res, next)=>{
     }else{
         try{
             const bank = new Bank()
-            const accountDetails = bank.generateAccountNumber()
+            const accountDetails = bank.generateSerialNumber()
             let accountNumber = accountDetails.accountNumber
             // const bankCode = bank.bankCode
             const balance = 0;
