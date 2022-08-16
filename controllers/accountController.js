@@ -9,20 +9,19 @@ exports.create = async( req, res, next)=>{
 
     // creates a new account for an existing user
 
-    const {user_id, accountType} = req.body;
+    const {user_id, bankCode, accountType} = req.body;
     const user =  await db("users").first("*").where({id:user_id})
-
     if (!user){
         return res.status(404).json({message: 'Account creation failed. User does not exist'})
     }else{
         try{
             const bank = new Bank()
-            const accountDetails = bank.generateSerialNumber()
-            let accountNumber = accountDetails.accountNumber
-            // const bankCode = bank.bankCode
+            let account = bank.createAccountNumber(bankCode)
+            console.log("account", account)
+            let accountNumber = account.nuban
             const balance = 0;
             await db.insert({user_id, accountNumber, accountType, balance}).into("accounts").returning("*").then((accountDetails)=>{
-                res.status(201).json({message:"account sucessfully created", accountDetails})
+                res.status(201).json({message:"account sucessfully created", account})
             })
         }catch(err){
             console.log(err)

@@ -22,14 +22,45 @@ class Bank{
      *  */ 
       
         let serialNumber = '';
-
-        for (let i = 0; i < this.nubanLength; i++){
-            const digit = Math.floor(Math.random(1, 9) * nuban);
-            accountNumber += digit.toString()
+        for (let i = 0; i < this.serialNumLength; i++){
+            const digit = Math.floor(Math.random(1, 9) * this.serialNumLength);
+            serialNumber += digit.toString()
         }
 
         return serialNumber
     }
+
+generateCheckDigit(serialNumber, bankCode){
+
+  if (serialNumber.length > this.serialNumLength) {
+    throw new AppError(
+      `Serial number should be at most ${this.serialNumLength}-digits long.`
+    );
+  }
+
+  serialNumber = serialNumber.padStart(this.serialNumLength, "0");
+
+  let cipher = bankCode + serialNumber;
+
+  let sum = 0;
+
+  // Step 1. Calculate A*3+B*7+C*3+D*3+E*7+F*3+G*3+H*7+I*3+J*3+K*7+L*3
+  let cipherArray = cipher.split("")
+
+  cipherArray.forEach((item, index) => {
+    sum += item * this.seed[index];
+  });
+
+  // Step 2: Calculate Modulo 10 of your result i.e. the remainder after dividing by 10
+  sum %= 10;
+
+  // Step 3. Subtract your result from 10 to get the Check Digit
+  let checkDigit = 10 - sum;
+
+
+  // Step 4. If your result is 10, then use 0 as your check digit
+  return checkDigit == 10 ? 0 : checkDigit;
+};
 
   createAccountNumber(bankCode){
 
@@ -38,7 +69,6 @@ class Bank{
      */
 
     let bank = banks.find(bank => bank.code == bankCode);
-
     if (!bank) {
       return next(
         new AppError(
@@ -48,19 +78,23 @@ class Bank{
     }
 
     try {
-      let serialNumber = this.generateSerialNumber.padStart(serialNumLength, "0");
-      let nuban = `${serialNumber}${generateCheckDigit(serialNumber, bankCode)}`;
+      let serialNumber = this.generateSerialNumber().padEnd(this.serialNumLength, 0);
+    
+      let checkDigit = this.generateCheckDigit(serialNumber, bankCode)
 
+      let nuban = `${serialNumber}${checkDigit}`;
+      console.log("nuban", nuban)
       let account = {
         serialNumber,
         nuban,
         bankCode,
         bank
       };
+    console.log(nuban, account)
+      return nuban;
 
-      res.send(account);
     } catch (err) {
-      next(err);
+      console.log;
     }
   }
 
@@ -77,34 +111,9 @@ class Bank{
       }
     });
     return null;
-  }
+  };
 
-  generateCheckDigit(serialNumber, bankCode){
-  if (serialNumber.length > serialNumLength) {
-    throw new Error(
-      `Serial number should be at most ${serialNumLength}-digits long.`
-    );
-  }
-
-  serialNumber = serialNumber.padStart(serialNumLength, "0");
-  let cipher = bankCode + serialNumber;
-  let sum = 0;
-
-  // Step 1. Calculate A*3+B*7+C*3+D*3+E*7+F*3+G*3+H*7+I*3+J*3+K*7+L*3
-  cipher.split("").forEach((item, index) => {
-    sum += item * seed[index];
-  });
-
-  // Step 2: Calculate Modulo 10 of your result i.e. the remainder after dividing by 10
-  sum %= 10;
-
-  // Step 3. Subtract your result from 10 to get the Check Digit
-  let checkDigit = 10 - sum;
-
-  // Step 4. If your result is 10, then use 0 as your check digit
-  checkDigit = checkDigit == 10 ? 0 : checkDigit;
-  return checkDigit;
-};
+  
 
 /**
  * Algorithm source: https://www.cbn.gov.ng/OUT/2011/CIRCULARS/BSPD/NUBAN%20PROPOSALS%20V%200%204-%2003%2009%202010.PDF
@@ -129,5 +138,4 @@ isBankAccountValid(accountNumber, bankCode){
 
 };
     
-
 module.exports = Bank

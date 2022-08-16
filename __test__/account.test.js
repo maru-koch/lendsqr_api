@@ -1,3 +1,13 @@
-test("description ",()=>{
-  expect(1).toBe(1)
+beforeEach(()=>{
+  getUserModel()
+})
+
+afterEach(()=>{
+  destroyUserModel()
+})
+
+test("Account Registration API",()=>{
+  it("Sign up",()=>{
+    expect().toBe(true);
+  })
 })
