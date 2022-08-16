@@ -9,6 +9,16 @@ const pkg = require('./package.json')
 const path = require('path')
 const databaseName = pkg.name + (process.env.NODE_ENV === 'test' ? '-test' : '')
 module.exports = {
+    test: {
+    client: "sqlite3",
+    connection: ":memory:",
+    useNullAsDefault: true,
+    migrations: {
+      directory: path.join(__dirname, "./config/test/migrations")
+    },
+    seeds: {
+      directory: path.join(__dirname, "seeds")
+    },
   development: {
     client: 'mysql2',
     connection: {
@@ -19,7 +29,7 @@ module.exports = {
       database : "lendersqrDB"
     },
     migrations: {
-      directory: path.join(__dirname, './config/migration'),
+      directory: path.join(__dirname, './config/devlopment/migrations'),
     }
   },
  production :{
@@ -33,9 +43,10 @@ module.exports = {
     },
     pool: {min: 2, max: 10},
     migrations: {
-      directory: path.join(__dirname, './config/migration'),
+      directory: path.join(__dirname, './config/production/migrations'),
     }
   }
-};
+}
+}
 
 
