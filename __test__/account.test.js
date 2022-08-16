@@ -1,13 +1,13 @@
-beforeEach(()=>{
-  getUserModel()
-})
+// beforeEach(()=>{
+//   getUserModel()
+// })
 
-afterEach(()=>{
-  destroyUserModel()
-})
+// afterEach(()=>{
+//   destroyUserModel()
+// })
 
-test("Account Registration API",()=>{
-  it("Sign up",()=>{
-    expect().toBe(true);
-  })
-})
+// test("Account Registration API",()=>{
+//   it("Sign up",()=>{
+//     expect().toBe(true);
+//   })
+// })
