@@ -17,7 +17,6 @@ exports.create = async( req, res, next)=>{
         try{
             const bank = new Bank()
             let account = bank.createAccountNumber(bankCode)
-            console.log("account", account)
             let accountNumber = account.nuban
             const balance = 0;
             await db.insert({user_id, accountNumber, accountType, balance}).into("accounts").returning("*").then((accountDetails)=>{
@@ -57,3 +56,8 @@ exports.checkBalance= async(req, res, next)=>{
     res.status(200).json({message:`Your account balance is ${account.balance} naira`, balance: account.balance})
 }
 
+exports.confirmAccount= async(req, res, next)=>{
+    const {accountNumber} = req.body;
+    let bank = new Bank()
+    return bank.getAccountBank(accountNumber)
+}

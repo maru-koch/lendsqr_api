@@ -83,15 +83,15 @@ generateCheckDigit(serialNumber, bankCode){
       let checkDigit = this.generateCheckDigit(serialNumber, bankCode)
 
       let nuban = `${serialNumber}${checkDigit}`;
-      console.log("nuban", nuban)
+  
       let account = {
         serialNumber,
         nuban,
         bankCode,
         bank
       };
-    console.log(nuban, account)
-      return nuban;
+   
+      return account;
 
     } catch (err) {
       console.log;

@@ -19,22 +19,22 @@ exports.transact=async(req, res, next)=>{
     }
     
     let accountBalance = parseInt(account.balance)
-    console.log("balance:", typeof accountBalance)
+  
     try{
         if (transactionType === "credit"){
         newBalance = amount + accountBalance
-        console.log("balance", newBalance, typeof newBalance)
         await db("accounts").update({balance:newBalance})
         res.status(200).json({message:`account successfully credited with ${amount} naira`, currentBalance: newBalance})
         }
 
     else if (transactionType === "debit"){
-        if (amount > newBalance){
+
+        if (amount > accountBalance){
             res.status(400).json({message:"Insufficient balance"})
         }else{
-            balance = newBalance - amount
-            db("accounts").update({balance})
-            res.status(200).json({message:`accounted successfully debited with ${amount} naira`, balance:bankAccount.checkBalance(req, res, next)})
+            const newBalance = accountBalance - amount
+            db("accounts").update({balance:newBalance})
+            res.status(200).json({message:`accounted successfully debited with ${amount} naira`, balance: newBalance})
         }
     }
     }catch (err) {
