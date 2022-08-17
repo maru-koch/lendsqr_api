@@ -59,5 +59,5 @@ exports.checkBalance= async(req, res, next)=>{
 exports.confirmAccount= async(req, res, next)=>{
     const {accountNumber} = req.body;
     let bank = new Bank()
-    return bank.getAccountBank(accountNumber)
+    return bank.getAccountBank(accountNumber.toString())
 }

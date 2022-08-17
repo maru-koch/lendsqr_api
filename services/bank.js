@@ -98,21 +98,6 @@ generateCheckDigit(serialNumber, bankCode){
     }
   }
 
-  getAccountBank(accountNumber){
-    /**
-     * checks if the account Number of the fund receiver is valid
-     * if true, it returns the account bank and bankCode else null
-     * @param {*} accountNumber
-     */
-     
-    banks.forEach((item, index) => {
-      if (isBankAccountValid(accountNumber, item.code)) {
-        return item;
-      }
-    });
-    return null;
-  };
-
   
 
 /**
@@ -126,8 +111,8 @@ generateCheckDigit(serialNumber, bankCode){
  */
 
 isBankAccountValid(accountNumber, bankCode){
-  if (!accountNumber || !accountNumber.length == nubanLength) {
-    error = `NUBAN must be ${nubanLength} digits long`
+  if (!accountNumber || !accountNumber.length == this.nubanLength) {
+    error = `NUBAN must be ${this.nubanLength} digits long`
     return false;
   }
 
@@ -135,6 +120,26 @@ isBankAccountValid(accountNumber, bankCode){
   let checkDigit = generateCheckDigit(serialNumber, bankCode);
   return checkDigit == accountNumber[9];
  };
+
+ getAccountBank(accountNumber){
+    /**
+     * checks if the account Number of the fund receiver is valid
+     * if true, it returns the account bank and bankCode else null
+     * @param {*} accountNumber
+     */
+    console.log(banks)
+     
+    banks.forEach((item, index) => {
+      console.log(item)
+      let isValid = isBankAccountValid(accountNumber, item.code);
+      if (isValid) {
+        return item;
+      }
+    });
+    return null;
+  };
+
+  
 
 };
     
